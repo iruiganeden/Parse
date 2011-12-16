@@ -9,23 +9,38 @@ import javax.script.SimpleScriptContext;
 import jp.ac.osaka_u.ist.sel.metricstool.main.MetricsTool;
 import jp.ac.osaka_u.ist.sel.metricstool.main.Settings;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.DataManager;
+import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.ArrayElementUsageInfo;
+import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.ArrayInitializerInfo;
+import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.ArrayTypeReferenceInfo;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.AssertStatementInfo;
+import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.BinominalOperationInfo;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.BlockInfo;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.BreakStatementInfo;
+import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.CallInfo;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.CaseEntryInfo;
+import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.CastUsageInfo;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.CatchBlockInfo;
+import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.ClassReferenceInfo;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.ConditionalBlockInfo;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.ContinueStatementInfo;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.DefaultEntryInfo;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.DoBlockInfo;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.ElseBlockInfo;
+import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.EmptyExpressionInfo;
+import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.ExpressionInfo;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.ExpressionStatementInfo;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.FinallyBlockInfo;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.ForBlockInfo;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.ForeachBlockInfo;
+import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.ForeachConditionInfo;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.IfBlockInfo;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.JumpStatementInfo;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.LabelInfo;
+import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.LiteralUsageInfo;
+import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.MethodCallInfo;
+import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.MonominalOperationInfo;
+import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.NullUsageInfo;
+import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.ParenthesesExpressionInfo;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.ReturnStatementInfo;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.SimpleBlockInfo;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.SingleStatementInfo;
@@ -66,15 +81,44 @@ public class JParse extends MetricsTool{
 			for(StatementInfo statement : statements){
 //				System.out.println(statement);
 				if(statement instanceof SingleStatementInfo){
-					System.out.println(statement);
+//					System.out.println(statement);
 					if(statement instanceof AssertStatementInfo){	
 						System.out.println("Assert");
 					}else if(statement instanceof ExpressionStatementInfo){
 						System.out.println("Expression");
+						System.out.println(((ExpressionStatementInfo) statement).getExpression());
+						ExpressionInfo expressionInfo = ((ExpressionStatementInfo) statement).getExpression();
+						if(expressionInfo instanceof ArrayElementUsageInfo){
+							
+						}else if(expressionInfo instanceof ArrayInitializerInfo){
+							
+						}else if(expressionInfo instanceof ArrayTypeReferenceInfo){
+							
+						}else if(expressionInfo instanceof BinominalOperationInfo){
+							
+						}else if(expressionInfo instanceof CallInfo){
+							
+						}else if(expressionInfo instanceof CastUsageInfo){
+							
+						}else if(expressionInfo instanceof ClassReferenceInfo){
+							
+						}else if(expressionInfo instanceof EmptyExpressionInfo){
+							
+						}else if(expressionInfo instanceof ForeachConditionInfo){
+							
+						}else if(expressionInfo instanceof LiteralUsageInfo){
+							
+						}else if(expressionInfo instanceof MonominalOperationInfo){
+							
+						}else if(expressionInfo instanceof NullUsageInfo){
+							
+						}else if(expressionInfo instanceof ParenthesesExpressionInfo){
+							
+						}
 					}else if(statement instanceof JumpStatementInfo){
 						System.out.println("Jump");
 						if(statement instanceof BreakStatementInfo){
-							System.out.println("Break");
+							System.out.println("Break"); 
 						}else if(statement instanceof ContinueStatementInfo){
 							System.out.println("Continue");
 						}else{
@@ -90,7 +134,7 @@ public class JParse extends MetricsTool{
 						System.out.println("SingleStatementñ¢ê›íË");
 					}
 				}else if(statement instanceof BlockInfo){
-					System.out.println(statement);
+//					System.out.println(statement);
 					if(statement instanceof CatchBlockInfo){
 						System.out.println("CatchBlock");
 					}else if(statement instanceof ConditionalBlockInfo){
