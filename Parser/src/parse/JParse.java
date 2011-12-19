@@ -1,10 +1,7 @@
 package parse;
 
-import java.lang.reflect.Field;
 import java.util.Set;
 import java.util.SortedSet;
-
-import javax.script.SimpleScriptContext;
 
 import jp.ac.osaka_u.ist.sel.metricstool.main.MetricsTool;
 import jp.ac.osaka_u.ist.sel.metricstool.main.Settings;
@@ -48,9 +45,12 @@ import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.StatementInfo;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.SwitchBlockInfo;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.SynchronizedBlockInfo;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.TargetMethodInfo;
+import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.TernaryOperationInfo;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.ThrowStatementInfo;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.TryBlockInfo;
+import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.UnknownEntityUsageInfo;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.VariableDeclarationStatementInfo;
+import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.VariableUsageInfo;
 import jp.ac.osaka_u.ist.sel.metricstool.main.data.target.WhileBlockInfo;
 import jp.ac.osaka_u.ist.sel.metricstool.main.io.DefaultMessagePrinter;
 import jp.ac.osaka_u.ist.sel.metricstool.main.io.MessageEvent;
@@ -78,58 +78,90 @@ public class JParse extends MetricsTool{
 //			String methodName = methodInfo.getOwnerClass().getClassName() + "_" + methodInfo.getMethodName() + ".txt";
 			System.out.println(methodInfo.getMethodName());
 			SortedSet<StatementInfo> statements = methodInfo.getStatementsWithSubsequencialBlocks();
+			
 			for(StatementInfo statement : statements){
 //				System.out.println(statement);
 				if(statement instanceof SingleStatementInfo){
 //					System.out.println(statement);
 					if(statement instanceof AssertStatementInfo){	
 						System.out.println("Assert");
+						System.out.println(statement.getText());
 					}else if(statement instanceof ExpressionStatementInfo){
-						System.out.println("Expression");
-						System.out.println(((ExpressionStatementInfo) statement).getExpression());
+//						System.out.println("Expression");
+//						System.out.println(((ExpressionStatementInfo) statement).getExpression());
 						ExpressionInfo expressionInfo = ((ExpressionStatementInfo) statement).getExpression();
 						if(expressionInfo instanceof ArrayElementUsageInfo){
-							
+							System.out.println("ArrayElement");
+							System.out.println(statement.getText());
 						}else if(expressionInfo instanceof ArrayInitializerInfo){
-							
+							System.out.println("ArrayInitializer");
+							System.out.println(statement.getText());
 						}else if(expressionInfo instanceof ArrayTypeReferenceInfo){
-							
+							System.out.println("ArrayType");
+							System.out.println(statement.getText());
 						}else if(expressionInfo instanceof BinominalOperationInfo){
-							
+							System.out.println("Binominal");
+							System.out.println(statement.getText());
 						}else if(expressionInfo instanceof CallInfo){
-							
+							System.out.println("Call");
+							System.out.println(statement.getText());
 						}else if(expressionInfo instanceof CastUsageInfo){
-							
+							System.out.println("Castusage");
+							System.out.println(statement.getText());
 						}else if(expressionInfo instanceof ClassReferenceInfo){
-							
+							System.out.println("ClassReference");
+							System.out.println(statement.getText());
 						}else if(expressionInfo instanceof EmptyExpressionInfo){
-							
+							System.out.println("EmptyExpression");
+							System.out.println(statement.getText());
 						}else if(expressionInfo instanceof ForeachConditionInfo){
-							
+							System.out.println("ForeachCondition");
+							System.out.println(statement.getText());
 						}else if(expressionInfo instanceof LiteralUsageInfo){
-							
+							System.out.println("Literal");
+							System.out.println(statement.getText());
 						}else if(expressionInfo instanceof MonominalOperationInfo){
-							
+							System.out.println("Monominal");
+							System.out.println(statement.getText());
 						}else if(expressionInfo instanceof NullUsageInfo){
-							
+							System.out.println("Null");
+							System.out.println(statement.getText());
 						}else if(expressionInfo instanceof ParenthesesExpressionInfo){
-							
+							System.out.println("Parentheses");
+							System.out.println(statement.getText());
+						}else if(expressionInfo instanceof TernaryOperationInfo){
+							System.out.println("Ternary");
+							System.out.println(statement.getText());
+						}else if(expressionInfo instanceof UnknownEntityUsageInfo){
+							System.out.println("Unknow");
+							System.out.println(statement.getText());
+						}else if(expressionInfo instanceof VariableUsageInfo){
+							System.out.println("Variable");
+							System.out.println(statement.getText());
+						}else{
+							System.out.println("ExpressionStatemenñ¢ê›íË");
 						}
 					}else if(statement instanceof JumpStatementInfo){
-						System.out.println("Jump");
+//						System.out.println("Jump");
 						if(statement instanceof BreakStatementInfo){
 							System.out.println("Break"); 
+							System.out.println(statement.getText());
 						}else if(statement instanceof ContinueStatementInfo){
 							System.out.println("Continue");
+							System.out.println(statement.getText());
 						}else{
 							System.out.println("Jumpñ¢ê›íË");
 						}
 					}else if(statement instanceof ReturnStatementInfo){
 						System.out.println("Return");
+						System.out.println(statement.getText());
 					}else if(statement instanceof ThrowStatementInfo){
 						System.out.println("Throw");
+						System.out.println(statement.getText());
 					}else if(statement instanceof VariableDeclarationStatementInfo){
 						System.out.println("VariableDeclaration");
+						System.out.println(statement.getText());
+						System.out.println(((VariableDeclarationStatementInfo) statement).getInitializationExpression());
 					}else{
 						System.out.println("SingleStatementñ¢ê›íË");
 					}
@@ -137,42 +169,57 @@ public class JParse extends MetricsTool{
 //					System.out.println(statement);
 					if(statement instanceof CatchBlockInfo){
 						System.out.println("CatchBlock");
+						System.out.println(statement.getText());
 					}else if(statement instanceof ConditionalBlockInfo){
-						System.out.println("ConditionalBlock");
+//						System.out.println("ConditionalBlock");
 						if(statement instanceof DoBlockInfo){
 							System.out.println("DoBlock");
+							System.out.println(statement.getText());
 						}else if(statement instanceof ForBlockInfo){
 							System.out.println("ForBlock");
+							System.out.println(statement.getText());
 						}else if(statement instanceof ForeachBlockInfo){
 							System.out.println("ForEachBlock");
+							System.out.println(statement.getText());
 						}else if(statement instanceof IfBlockInfo){
 							System.out.println("IfBlock");
+							System.out.println(statement.getText());
 						}else if(statement instanceof SwitchBlockInfo){
 							System.out.println("SwitchBlock");
+							System.out.println(statement.getText());
 						}else if(statement instanceof WhileBlockInfo){
 							System.out.println("WhileBlock");
+							System.out.println(statement.getText());
 						}else{
 							System.out.println("ConditionalBlockñ¢ê›íË");
 						}
 					}else if(statement instanceof ElseBlockInfo){
 						System.out.println("ElseBlock");
+						System.out.println(statement.getText());
 					}else if(statement instanceof FinallyBlockInfo){
 						System.out.println("FinallyBlock");
+						System.out.println(statement.getText());
 					}else if(statement instanceof SimpleBlockInfo){
 						System.out.println("SimpleBlock");
+						System.out.println(statement.getText());
 					}else if(statement instanceof SynchronizedBlockInfo){
 						System.out.println("SynchronizedBlock");
+						System.out.println(statement.getText());
 					}else if(statement instanceof TryBlockInfo){
 						System.out.println("TryBlock");
+						System.out.println(statement.getText());
 					}else{
 						System.out.println("Blockñ¢ê›íË");
 					}
 				}else if(statement instanceof CaseEntryInfo){
 					System.out.println("CaseEnty");
+					System.out.println(statement.getText());
 				}else if(statement instanceof DefaultEntryInfo){
 					System.out.println("DefaultEntry");
+					System.out.println(statement.getText());
 				}else if(statement instanceof LabelInfo){
 					System.out.println("Label");
+					System.out.println(statement.getText());
 				}else{
 					System.out.println("Statementñ¢ê›íË");
 				}
@@ -180,6 +227,11 @@ public class JParse extends MetricsTool{
 		}
 		
 	}
+	
+	private static void statementAnalysis(StatementInfo statement){
+		
+	}
+	
 
 	private static void doSettings() {
 		Settings.getInstance().setLanguage("java");
